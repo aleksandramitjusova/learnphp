@@ -1,12 +1,18 @@
 <?php
-$test = 'hello';
-$test = 'hello' . ' world';
-$test .= '!';
-$name = 'sandra';
-$age = 18;
-$test = $name . ' is ' . $age . ' years old.';
-$test = 'sandra' . ' is ' . 18 . ' years old.';
-$test = "hello\n\nworld";
-$letter = 'a';
-$letter++;
+$test = true;
+$test = false;
+$test = true && true;
+$test = true || false;
+$test = !false;
+$test = 10 > 5;
+$test = 10 < 5;
+$test = 10 == 10;
+$test = 10 != 5;
+$test = 10 >= 10;
+$test = 10 <= 5;
+$test = 10 === 10;
+$test = 10 !== 5;
+$test = 10 === '10';
+$test = 10 !== '10';
+$test = true && false || (true && !true);
 var_dump($test);
