@@ -1,14 +1,12 @@
 <?php
-$test = 10;
-$test = 10 - 2;
-$test = 10 + 2;
-$test = 10 * 2;
-$test = 10 / 2;
-$test = 10 % 2;
-$test = 10 ** 2;
-$test = 10 + 2 * 3;
-$test = (10 + 2) * 3;
-$test = 10 + 2 * 3 - 4 / 2;
-$test = (10 + 2) * (3 - 4) / 2;
-$test = sqrt(16);
+$test = 'hello';
+$test = 'hello' . ' world';
+$test .= '!';
+$name = 'sandra';
+$age = 18;
+$test = $name . ' is ' . $age . ' years old.';
+$test = 'sandra' . ' is ' . 18 . ' years old.';
+$test = "hello\n\nworld";
+$letter = 'a';
+$letter++;
 var_dump($test);
