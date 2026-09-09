@@ -1,53 +1,23 @@
 <?php
 
-class box {
-    public int $width;
-    private int $height;
-    protected int $length;
-    public $isOpen = false;
-    public $hasBeenOpened = false;
+class cat {
+    use makesSound;
+}
 
-    public function open() {
-        $this->isOpen = true;
-        $this->hasBeenOpened = true;
-    }
+class dog {
+use hasSmell, makesSound;
+}
 
-    public function close() {
-        $this->isOpen = false;
-    }
-
-    public function volume () {
-        return $this->height * $this->width * $this->length;
-    }
-
-    public function test() {
-        var_dump($this->height);
-    }
-
-    public function setHeight($height) {
-        if ($height < 0) {
-            $this->height = $height;
-        }
-    }
-
-    public function getHeight() {
-        return $this->height;
+trait hasSmell {
+    public $smell;
+    public function sniff() {
+        return 'smells like' . $this->smell;
     }
 }
 
-
-class Metalbox extends box {
-    public $weight;
-
-    public function mass() {
-        return $this->volume() * $this->weight;
-    }
-    public function test() {
-        var_dump($this->height);
+trait makesSound {
+    public $sound;
+    public function noise() {
+        return $this->sound;
     }
 }
-
-$metal1 = new Metalbox();
-$metal1->height = 1;
-var_dump($metal1);
- 
