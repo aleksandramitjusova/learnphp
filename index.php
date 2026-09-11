@@ -1,21 +1,13 @@
 <?php
 
-class Cat {
-    use MakesSound;
-}
 class Box {
 
-class Dog {
-    use HasSmell, MakesSound;
-}
+    public static $count = 0;
     public function __construct(private $w, private $h, private $l) {
         var_dump('Box was created!');
+        self::$count++;
     }
 
-trait HasSmell {
-    public $smell;
-    public function sniff() {
-        return 'Smells like ' . $this->smell;
     public function volume(){
         return $this->w * $this->h * $this->l;
     }
@@ -36,19 +28,17 @@ trait HasSmell {
     public function __call($name, $args) {
         var_dump($name, $args);
     }
-}
 
-trait MakesSound {
-    public $sound;
-    public function noise() {
-        return $this->sound;
     public function __toString() {
         return "Im a box with W: $this->w H: $this->h L: $this->l";
     }
-}
 
     public function __destruct() {
         var_dump('Box was destroyed!');
+    public static function me() {
+        var_dump(self::class);
+        var_dump(static::class);
+        
     }
     
 }
@@ -56,8 +46,10 @@ trait MakesSound {
 function lol(){
     $box4 = new Box(4, 4, 5);
 }
+class MetalBox extends Box {
 
 lol();
+}
 
 $box1 = new Box(1,2,3);
 $box1->color = 'hello';
@@ -69,3 +61,8 @@ $box2 = new Box(4,5,6);
 var_dump($box1, $box2);
 $box3 = clone $box2;
 echo $box1;
+Box::$count = 1;
+Box::$count = 2;
+Box::me();
+MetalBox::me();
+var_dump(Box::$count, Box::$count);
