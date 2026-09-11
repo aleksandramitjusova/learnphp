@@ -1,68 +1,60 @@
 <?php
 
 class Box {
-
     public static $count = 0;
     public function __construct(private $w, private $h, private $l) {
-        var_dump('Box was created!');
         self::$count++;
+// library
+
+class Job {
+    public function task(Logger $logger) {
+        for($i=0;$i<10;$i++){
+            //some work is done (video proccessing or what ever)
+            $logger->log("Task $i was done!");
+        }
     }
+}
 
     public function volume(){
         return $this->w * $this->h * $this->l;
+class ConsoleLogger implements Logger {
+    public function log($message) {
+        echo "$message\n";
     }
+}
 
-    public function __set($name, $value) {
-        var_dump($name, $value);
-    }
+class NothingLogger implements Logger {
+    public function log($message) {
 
-    public function __get($name) {
-        var_dump($name);
-        return 'YOLO';
-    }
-
-    public function __invoke() {
-        var_dump('Im a function');
-    }
-    
-    public function __call($name, $args) {
-        var_dump($name, $args);
-    }
-
-    public function __toString() {
-        return "Im a box with W: $this->w H: $this->h L: $this->l";
-    }
-
-    public function __destruct() {
-        var_dump('Box was destroyed!');
     public static function me() {
         var_dump(self::class);
         var_dump(static::class);
         
     }
-    
 }
 
-function lol(){
-    $box4 = new Box(4, 4, 5);
-}
 class MetalBox extends Box {
-
-lol();
+interface Logger {
+    public function log($message);
 }
 
-$box1 = new Box(1,2,3);
-$box1->color = 'hello';
-$box1();
-$box1->hello(1, 'aasda', 'azczxc');
-var_dump($box1->lolollol);
-$box1 = 1;
-$box2 = new Box(4,5,6);
-var_dump($box1, $box2);
-$box3 = clone $box2;
-echo $box1;
+
+// user code
+
+class FileLogger implements Logger {
+    public function log($message) {
+        $file = fopen('log.txt', 'a');
+        fwrite($file, "$message\n");
+        fclose($file);
+    }
+}
+
 Box::$count = 1;
 Box::$count = 2;
 Box::me();
 MetalBox::me();
 var_dump(Box::$count, Box::$count);
+$job = new Job();
+$logger = new FileLogger();
+$job->task($logger);
+
