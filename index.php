@@ -1,27 +1,27 @@
 <?php
+$name = 'Alissia';
+$coinFlip= rand(0,1);
+?>
  
-class Box {
-    public static $count = 0;
-    public function __construct(private $w, private $h, private $l) {
-        self::$count;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello <?=$name?>!</h1>
+    <?php if($coinFlip): ?>
+        <h1>Kull</h1>
+    <?php else: ?>
+        <h1>Kiri</h1>
+    <?php endif ?>
  
-    public function volume() {
-        return $this->w * $this->h * $this->l;
-    }
- 
-    public static function me() {
-        var_dump(self::class);
-        var_dump(static::class);
-    }
-}
- 
-class MetalBox extends Box {
- 
-}
- 
-Box::$count = 1;
-Box::$count = 2;
-Box::me();
-MetalBox::me();
-var_dump(Box::$count, Box::$count);
+    <ul>
+        <?php for($i=0;$i<10;$i++): ?>
+            <li><?=$i?></li>
+        <?php endfor ?>
+    </ul>
+</body>
+</html>
