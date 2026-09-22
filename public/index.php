@@ -11,13 +11,17 @@ function dump(...$vars)
     echo '<pre>';
 }
 
-switch ($_SERVER['REQUEST_URI']) {
-    case '/':
-        include __DIR__ . '/../views/index.php';
-        break;
-    case 'us':
-        include __DIR__ . '/../views/us.php';
-        break;
-    default:
-        echo '404';
-}
+
+spl_autoload_register(function ($class) {
+    $class = substr($class, 4);
+    $class = str_replace('\\');
+    require_once __DIR__ . "/../src/$class.php";
+
+});
+
+use App\Controllers\PublicController as PC;
+
+$controller = new App\Controllers\PublicController();
+$router = new Router();
+$db = new App\DB();
+dump($router,$db);
