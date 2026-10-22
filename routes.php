@@ -6,6 +6,8 @@ use App\Router;
 Router::get('/', [PublicController::class, 'index']);
 
 Router::get('/us', [PublicController::class, 'us']);
+Router::get('/tech', [PublicController::class, 'tech']);
+
 
 Router::get('/forms', [PublicController::class, 'forms']);
 Router::post('/forms', [PublicController::class, 'answer']);

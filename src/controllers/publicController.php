@@ -4,26 +4,10 @@ namespace App\Controllers;
 
 class PublicController
 {
-    public function index()
-    {
-        throw new exception('lol is not working')
-    } catch (exception $e) {
-        dump($e);
-    }
     
-    try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  echo "Connected successfully";
-} catch(PDOException $e) {
-  echo "Connection failed: " . $e->getMessage();
-}
-} 
-?>
     
-    public function us(){
-    {
+    public function index(){
+    
     $title = 'World';
         $posts = [
             [
@@ -84,6 +68,37 @@ class PublicController
             ],
         ];
         view('us', compact('title', 'posts'));
+    }
+    public function tech()
+    {
+        $title = 'Tech';
+        $posts = [
+            [
+                'title' => 'AI is changing the world',
+                'content' => 'Artificial intelligence is making technology smarter and helping people with everyday tasks.',
+                'date' => 'January 1, 2021',
+                'author' => 'Pets',
+            ],
+            [
+                'title' => 'AI is changing the world',
+                'content' => 'Artificial intelligence is making technology smarter and helping people with everyday tasks.',
+                'date' => 'January 2, 2021',
+                'author' => 'Juss',
+            ],
+            [
+                'title' => 'AI is changing the world',
+                'content' => 'Artificial intelligence is making technology smarter and helping people with everyday tasks.',
+                'date' => 'January 3, 2021',
+                'author' => 'Alex',
+            ],
+            [
+                'title' => 'AI is changing the world',
+                'content' => 'Artificial intelligence is making technology smarter and helping people with everyday tasks.',
+                'date' => 'January 4, 2021',
+                'author' => 'Manivald',
+            ],
+        ];
+        view('tech', compact('title', 'posts'));
     }
     
     public function forms() {
