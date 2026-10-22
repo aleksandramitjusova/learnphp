@@ -1,20 +1,29 @@
 <?php
-
-use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
-
-define('LARAVEL_START', microtime(true));
-
-// Determine if the application is in maintenance mode...
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
-    require $maintenance;
+if (preg_match('/\.(?:png|jpg|jpeg|gif|css|js)$/', $_SERVER["REQUEST_URI"])) {
+    return false;    // serve the requested resource as-is.
 }
 
-// Register the Composer autoloader...
-require __DIR__.'/../vendor/autoload.php';
 
-// Bootstrap Laravel and handle the request...
-/** @var Application $app */
-$app = require_once __DIR__.'/../bootstrap/app.php';
+spl_autoload_register(function ($class){
+    $class = substr($class,4);
+    $class = str_replace('\\', '/', $class);
+    require_once __DIR__ . "/../src/$class.php";
+});
 
-$app->handleRequest(Request::capture());
+require __DIR__ . '/../helpers.php';
+require __DIR__ . '/../routes.php';
+
+$router = new App\Router($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+$match = $router->match();
+if($match) {
+    if(is_callable($match['action'])) {
+        call_user_func($match['action']);
+    } else if(is_array($match['action'])) {
+        $class = $match['action'][0];
+        $controller = new $class();
+        $method = $match['action'][1];
+        $controller->$method();
+    }
+} else {
+    echo 404;
+}
