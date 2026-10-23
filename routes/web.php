@@ -1,15 +1,24 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/buttons', [PublicController::class, 'buttons'])->name('buttons');
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/{user}', [UserController::class, 'show'])
+    ->name('users.show');
 Route::get('/post/{post}', [PublicController::class, 'post'])->name('post');
 Route::get('/secure', [PublicController::class, 'index'])->name('secure')->middleware(['auth', 'password.confirm']);
-
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])
+    ->name('users.edit')->middleware('auth');
+    Route::put('/users/{user}', [UserController::class, 'update'])
+    ->name('users.update')->middleware('auth');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])
+    ->name('users.destroy')->middleware('auth');
 // Route::get('/admin/posts', [PostController::class, 'index'])->name('posts.index');
 // Route::get('/admin/posts/create', [PostController::class, 'create'])->name('posts.create');
 // Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
